@@ -1,0 +1,10 @@
+<div class="container">
+  <div *ngIf="posts && posts.length">
+    <app-post-list-item class="pt-4 p-2" *ngFor="let post of posts" [post]="post">
+
+    </app-post-list-item>
+  </div>
+  <div *ngIf="!posts && posts.length===0">
+    <p>No posts available.</p>
+  </div>
+</div>

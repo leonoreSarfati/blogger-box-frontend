@@ -1,0 +1,8 @@
+<div class="pt-4 p-2" *ngIf="post">
+  <h5 class="card-title">{{post.title}}</h5>
+  <p class="card-text">{{post.content}}</p>
+  <div>
+    <span class="badge rounded-pill text-bg-light">{{post.category.name}}</span>
+    <span class="card-text">{{post.createdDate | date: "medium"}}</span>
+  </div>
+</div>

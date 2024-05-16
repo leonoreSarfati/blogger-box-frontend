@@ -11,15 +11,49 @@
         type="text"
         class="form-control"
         formControlName="title"
+        [class.is-invalid]="title?.invalid && title?.touched"
+        [class.is-valid]="title?.valid && title?.touched"
       />
+      <div *ngIf="title?.invalid && title?.touched" class="invalid-feedback text-danger">
+        <div *ngIf="title?.errors?.['minlength']">
+          Title should be 5 characters or more
+        </div>
+        <div *ngIf="title?.errors?.['maxlength']">
+          Title should be less than 150 characters
+        </div>
+        <div *ngIf="title?.errors?.['required']">
+          Title is required
+        </div>
+      </div>
+    </div>
+    <div class="mb-4">
+      <label>Category:</label>
+      <select
+        type="text"
+        class="form-select"
+        formControlName="category"
+      >
+        <option *ngFor="let category of categories" [value]="category">{{category.name}}</option>
+      </select>
     </div>
     <div class="mb-4">
       <label>Content:</label>
-      <input
-        type="text"
+      <textarea
         class="form-control"
         formControlName="content"
-      />
+        [class.is-invalid]="content?.invalid && content?.touched"
+        [class.is-valid]="content?.valid && content?.touched"
+      >
+      </textarea>
+      <div *ngIf="content?.invalid && content?.touched" class="invalid-feedback text-danger">
+        <div *ngIf="content?.errors?.['maxlength']">
+          Content should be less than 2500 characters
+        </div>
+        <div *ngIf="content?.errors?.['required']">
+          Content is required
+        </div>
+      </div>
+
     </div>
 
   </form>

@@ -1,0 +1,27 @@
+<div class="container mt-5">
+  <form
+    [formGroup]="postForm"
+    (ngSubmit)="onSubmit()"
+    class="needs-validation"
+    autocomplete="off"
+  >
+    <div class="mb-4">
+      <label>Title:</label>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="title"
+      />
+    </div>
+    <div class="mb-4">
+      <label>Content:</label>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="content"
+      />
+    </div>
+
+  </form>
+</div>
+

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {User} from "../../data/user";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-top-bar',

@@ -8,6 +8,8 @@ export interface Post{
   category:Category,
 }
 
+export type PostCreateInput=Omit<Post,"id">;
+
 export const POSTS: Post[] = [
   {
     id: '1',

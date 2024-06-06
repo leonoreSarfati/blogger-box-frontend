@@ -3,6 +3,9 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {PostService} from "../../services/post_service";
 import {CategoryService} from "../../services/category_service";
 import {Category} from "../../data/category";
+import {PostCreateInput} from "../../data/post";
+import {Router} from "@angular/router";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-post-form',
@@ -19,8 +22,13 @@ export class AddPostFormComponent implements OnInit{
     content:['',
       {validators:[Validators.required, Validators.maxLength(2500)]}]
   });
+  postCreateInput!: PostCreateInput;
 
-  constructor(private formBuilder: FormBuilder, private categoryService: CategoryService) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private categoryService: CategoryService,
+    private postService: PostService,
+    private router: Router) {}
 
   get title(){
     return this.postForm.controls['title'];
@@ -44,7 +52,39 @@ export class AddPostFormComponent implements OnInit{
   }
 
 
-  onSubmit():void{
-
+  onSubmit() {
+    console.log("in submit")
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+      }
+    });
+    if (this.postForm.valid) {
+      this.postCreateInput = {
+        title: this.postForm.value.title,
+        content: this.postForm.value.content,
+        categoryId: this.postForm.value.category,
+      };
+      this.postService
+        .create(this.postCreateInput)
+        .subscribe(() =>
+          this.router.navigate(['/']).then((r) => console.log(r)),
+        );
+      Toast.fire({
+        icon: 'success',
+        title: 'Post successfully'
+      });
+    } else {
+      Toast.fire({
+        icon: 'error',
+        title: 'Please review your post'
+      })
+    }
   }
 }
